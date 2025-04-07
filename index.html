@@ -156,7 +156,23 @@
             document.getElementById("chat-response").innerText = response;
             document.getElementById("chat-input").value = ""; // Clear the input field
         }
-    </script>
+    </script>// Sign-up function
+async function signup() {
+    const email = document.getElementById("signup-email").value;
+    const password = document.getElementById("signup-password").value;
+
+    const { user, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+    });
+
+    if (error) {
+        alert("Error signing up: " + error.message);
+    } else {
+        alert("Sign-up successful! Please check your email for confirmation.");
+        // Optionally, you can redirect them to a confirmation page or login page
+    }
+}
 
 </body>
 </html>
