@@ -174,5 +174,59 @@ async function signup() {
     }
 }
 
-</body>
+// Supabase initialization (replace with your details)
+const supabase = supabase.createClient(
+    'https://YOUR_PROJECT_ID.supabase.co', // Replace this with your actual Supabase URL
+    'YOUR_PUBLIC_ANON_KEY' // Replace this with your actual public anon key
+);
+
+// Sign-up function
+async function signup() {
+    const email = document.getElementById("signup-email").value;
+    const password = document.getElementById("signup-password").value;
+
+    const { user, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+    });
+
+    if (error) {
+        alert("Error signing up: " + error.message);
+    } else {
+        alert("Sign-up successful! Please check your email for confirmation.");
+    }
+}
+
+// Log-in function
+async function login() {
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    const { user, error } = await supabase.auth.signIn({
+        email: email,
+        password: password,
+    });
+
+    if (error) {
+        alert("Error logging in: " + error.message);
+    } else {
+        alert("Login successful!");
+        // You can redirect the user to their dashboard here
+        // window.location.href = '/dashboard.html'; // For example
+    }
+}
+
+// Toggle between Sign-up and Log-in form
+function toggleAuthForm() {
+    const signupForm = document.getElementById("signup-form");
+    const loginForm = document.getElementById("login-form");
+
+    if (signupForm.style.display === "none") {
+        signupForm.style.display = "block";
+        loginForm.style.display = "none";
+    } else {
+        signupForm.style.display = "none";
+        loginForm.style.display = "block";
+    }
+}</body>
 </html>
